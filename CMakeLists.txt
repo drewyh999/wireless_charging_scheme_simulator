@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.16)
+set(PROJECT_NAME wireless_charging_scheme_simulator)
+project(${PROJECT_NAME} VERSION 0.0.0)
+
+set(CMAKE_CXX_STANDARD 20)
+add_subdirectory(Metrics)
+include_directories(Metrics)
+add_executable(wireless_charging_scheme_simulator main.cpp)
+target_link_libraries(${PROJECT_NAME} PUBLIC Metrics)
