@@ -4,14 +4,13 @@
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_POINT_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_POINT_H
-
+#include<cmath>
 
 class point {
 protected:
     double x;
     double y;
 public:
-
 
     point(double x, double y);
 
@@ -22,6 +21,8 @@ public:
     [[nodiscard]] double getY() const;
 
     void setY(double y);
+
+    double getDistance(point* point);
 };
 
 
