@@ -5,11 +5,15 @@
 #include "Graph.h"
 
 Graph::Graph() {
-    this -> vertices = new vector<vertex>();
+    this -> vertices = new vector<vertex*>();
 }
 
-void Graph::AddVertex(unsigned int x, unsigned int y) {
-    auto *v = new vertex(x, y);
-    this -> vertices -> push
-
+bool Graph::isVertexIterated(vertex *v) {
+    return this -> iteration_map.at(v);
 }
+
+void Graph::AddVertex(vertex *new_vertex) const {
+    this -> vertices-> push_back(new_vertex);
+}
+
+

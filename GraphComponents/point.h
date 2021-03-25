@@ -7,9 +7,11 @@
 
 
 class point {
-public:
+protected:
     double x;
     double y;
+public:
+
 
     point(double x, double y);
 

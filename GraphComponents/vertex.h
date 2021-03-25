@@ -14,15 +14,13 @@ private:
     vertex *next_neighbor;
 public:
 
-    vertex(double x, double y, vertex *firstNeighbor);
+    vertex(double x, double y);
 
-    [[nodiscard]] vertex *getNextNeighbor() const;
+    [[nodiscard]] vertex *getNextNeighbor();
 
     void AddNextNeighbor(vertex *newNeighbor);
 
     void resetNeighborPointer();
-
-    vertex* getNextEdge();
 
 };
 

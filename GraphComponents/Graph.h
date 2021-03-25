@@ -6,13 +6,16 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_GRAPH_H
 #include<vector>
 #include "vertex.h"
+#include<map>
 
 using namespace std;
 class Graph {
 public:
-    vector<vertex> *vertices;
+    vector<vertex*> *vertices;
+    map<vertex*, bool> iteration_map;
     Graph();
-    void AddVertex(unsigned int x, unsigned int y);
+    void AddVertex(vertex* new_vertex) const;
+    bool isVertexIterated(vertex* v);
 
 };
 
