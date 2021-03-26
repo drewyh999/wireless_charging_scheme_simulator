@@ -22,7 +22,7 @@ public:
 
     void setY(double y);
 
-    double getDistance(point* point);
+    double getDistance(point* point) const;
 };
 
 

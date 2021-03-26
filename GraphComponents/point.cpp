@@ -22,7 +22,7 @@ void point::setY(double y) {
     point::y = y;
 }
 
-double point::getDistance(point *point) {
+double point::getDistance(point *point) const {
     double x_1 = this -> getX();
     double y_1 = this -> getY();
     double x_2 = point -> getX();

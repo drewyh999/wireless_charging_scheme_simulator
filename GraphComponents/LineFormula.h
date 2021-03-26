@@ -11,9 +11,13 @@ class LineFormula {
     //For a line in the x-y coordinate system, it is generally expressed as y = ax + b
 public:
     double a; //For a
+
     double b; //For b
-    double getYbyX(double x) const;
-    double getXbyY(double y) const;
+
+    [[nodiscard]] double getYbyX(double x) const;
+
+    [[nodiscard]] double getXbyY(double y) const;
+
     LineFormula(point* p_1,point* p_2);//Construct the line by two point coordinate of
                                                                 // the vertices
     [[nodiscard]] point* moveFromPoint(point* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
