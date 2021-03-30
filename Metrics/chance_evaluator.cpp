@@ -4,6 +4,11 @@
 
 #include "chance_evaluator.h"
 
-double chanceevaluator::getEvaluationScore() {
+double ChanceEvaluator::getEvaluationScore() {
+    return 0;
+}
+
+double ChanceEvaluator::getTruncatedPdfValue() {
+    //TODO implement PDF integral or find a lib that directly calculates CDF
     return 0;
 }

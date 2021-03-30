@@ -6,11 +6,15 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_ENERGY_EVALUATOR_H
 #include "base_evaluator.h"
 
-class energy_evaluator:public BaseEvaluator{
+class EnergyEvaluator: public BaseEvaluator{
 private:
     double E_B;
+    double delta_l;
+    double P_c;
+    double v_bar;
+    double E_c;
 public:
-    energy_evaluator(Solution *solution, double eB);
+    EnergyEvaluator(Solution *solution, double eB, double deltaL, double pC, double vBar);
 
     double getEvaluationScore() override;
 };

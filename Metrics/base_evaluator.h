@@ -4,7 +4,6 @@
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_BASE_EVALUATOR_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_BASE_EVALUATOR_H
-#include<graph.h>
 #include<base_solution.h>
 
 class BaseEvaluator {

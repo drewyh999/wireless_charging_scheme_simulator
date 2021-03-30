@@ -6,22 +6,22 @@
 
 
 
-Point* edge::moveFromPoint(Point* start_point, double distance) const {
+Point* Edge::moveFromPoint(Point* start_point, double distance) const {
     double cosine = cos(atan(this -> a));
     double new_x = start_point -> getX() + distance * cosine;
     double new_y = this -> getYbyX(new_x);
     return new Point(0, 0);
 }
 
-double edge::getYbyX(double x) const {
+double Edge::getYbyX(double x) const {
     return this -> a * x + this -> b;
 }
 
-double edge::getXbyY(double y) const {
+double Edge::getXbyY(double y) const {
     return (y - this -> b) / this -> a;
 }
 
-edge::edge(Point *p_1, Point *p_2) {
+Edge::Edge(Point *p_1, Point *p_2) {
     this -> point_1 = p_1;
     this -> point_2 = p_2;
     double x_1 = p_1 -> getX();
@@ -32,24 +32,24 @@ edge::edge(Point *p_1, Point *p_2) {
     this -> b = y_2 - a * x_2;
 }
 
-Point *edge::getPoint1() const {
+Point *Edge::getPoint1() const {
     return point_1;
 }
 
-Point *edge::getPoint2() const {
+Point *Edge::getPoint2() const {
     return point_2;
 }
 
-bool edge::operator==(const edge &rhs) const {
+bool Edge::operator==(const Edge &rhs) const {
     return point_1 == rhs.point_1 &&
            point_2 == rhs.point_2;
 }
 
-bool edge::operator!=(const edge &rhs) const {
+bool Edge::operator!=(const Edge &rhs) const {
     return !(rhs == *this);
 }
 
-double edge::chargeAlongEdge(vector<charger *> *chargers, double delta_l, double P_c, double v_bar) const {
+double Edge::chargeAlongEdge(vector<charger *> *chargers, double delta_l, double P_c, double v_bar) const {
     Point* start_point = this -> getPoint1();
     double vertex_distance = start_point -> getDistance(this -> getPoint2());
 
@@ -66,7 +66,7 @@ double edge::chargeAlongEdge(vector<charger *> *chargers, double delta_l, double
                 temp_point = this -> moveFromPoint(start_point,delta_l / 2);
             }
             else{
-                //Later we can move it one delta long each time to next mid-Point
+                //Later we can move it one Sigma long each time to next mid-Point
                 temp_point = this -> moveFromPoint(temp_point, delta_l);
             }
             temp_E += (P_c - temp_point->chargeToPoint(chargers)) * travel_time;

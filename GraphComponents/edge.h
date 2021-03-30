@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class edge {
+class Edge {
     //For a line in the x-y coordinate system, it is generally expressed as y = ax + b
 
 private:
@@ -27,16 +27,16 @@ public:
 
     [[nodiscard]] double getXbyY(double y) const;
 
-    edge(Point* p_1, Point* p_2);//Construct the line by two Point coordinate of
+    Edge(Point* p_1, Point* p_2);//Construct the line by two Point coordinate of
                                                                 // the vertices
 
     [[nodiscard]] Point *getPoint1() const;
 
     [[nodiscard]] Point *getPoint2() const;
 
-    bool operator==(const edge &rhs) const;
+    bool operator==(const Edge &rhs) const;
 
-    bool operator!=(const edge &rhs) const;
+    bool operator!=(const Edge &rhs) const;
 
     double chargeAlongEdge(vector<charger *> *chargers, double delta_l, double P_c, double v_bar) const;
 private:

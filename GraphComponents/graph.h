@@ -13,12 +13,22 @@ using namespace std;
 class Graph {
 private:
     vector<Vertex*> *vertices;
-    vector<edge*> *Edges;
+    vector<Edge*> *Edges;
 public:
 
     Graph();
+
     void addVertex(Vertex* new_vertex);
-    void addEdge(edge* new_edge);
+
+    void addEdge(Edge* new_edge);
+
+    int getNumberOfEdges();
+
+    int getNumberOfVertices();
+
+    [[nodiscard]] vector<Vertex *> *getVertices() const;
+
+    [[nodiscard]] vector<Edge *> *getEdges() const;
 
 };
 

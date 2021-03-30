@@ -8,7 +8,7 @@
 double Point::chargeToPoint(std::vector<charger *> *chargers) {
     double P_h = 0;
     for(auto & charger : *chargers){
-        P_h = charger -> rechargeToDestination(this) + P_h;
+        P_h += charger -> rechargeToDestination(this);
     }
     return P_h;
 }

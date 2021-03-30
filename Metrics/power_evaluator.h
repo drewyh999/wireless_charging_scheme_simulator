@@ -6,7 +6,13 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_POWER_EVALUATOR_H
 #include"base_evaluator.h"
 
-class powerevaluator:public BaseEvaluator{
+class PowerEvaluator: public BaseEvaluator{
+private:
+    double P_c;
+public:
+    PowerEvaluator(Solution *solution, double pC);
+
+    double getEvaluationScore() override;
 
 };
 

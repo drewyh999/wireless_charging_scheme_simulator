@@ -6,7 +6,16 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_CHANCE_EVALUATOR_H
 #include"base_evaluator.h"
 
-class chanceevaluator:public BaseEvaluator{
+class ChanceEvaluator: public BaseEvaluator{
+private:
+    double pth;
+    double delta_l;
+    double P_c;
+    double v_bar;
+    double E_c;
+
+
+    double getTruncatedPdfValue();
 public:
     double getEvaluationScore() override;
 };
