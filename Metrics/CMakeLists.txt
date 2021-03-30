@@ -1,1 +1,4 @@
-add_library(Metrics Metrics_test.cpp Metrics_test.h)
+aux_source_directory(. MET_SOURCE)
+include_directories(../GraphComponents)
+include_directories(../Solutions)
+add_library(Metrics ${MET_SOURCE})

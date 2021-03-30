@@ -8,19 +8,10 @@
 
 #include "point.h"
 
-class vertex: public point {
-private:
-    vertex *first_neighbor;
-    vertex *next_neighbor;
+class Vertex: public Point {
 public:
 
-    vertex(double x, double y);
-
-    [[nodiscard]] vertex *getNextNeighbor();
-
-    void AddNextNeighbor(vertex *newNeighbor);
-
-    void resetNeighborPointer();
+    Vertex(double x, double y);
 
 };
 

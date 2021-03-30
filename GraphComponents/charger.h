@@ -5,10 +5,11 @@
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_CHARGER_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_CHARGER_H
 
+#include<cmath>
+#include<vector>
+#include"coordinates.h"
 
-#include "point.h"
-
-class charger: public point{
+class charger: public coordinates{
 private:
     double tau = 0.003;//For the constant in the recharging model
     double Ps;//For the chargers transmit power
@@ -17,7 +18,7 @@ private:
 public:
     charger(double x, double y, double ps);
 
-    double rechargeForDestination(point *destination);
+    double rechargeToDestination(coordinates *destination);
 
 };
 

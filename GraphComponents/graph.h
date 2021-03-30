@@ -7,15 +7,18 @@
 #include<vector>
 #include "vertex.h"
 #include<map>
+#include"edge.h"
 
 using namespace std;
 class Graph {
+private:
+    vector<Vertex*> *vertices;
+    vector<edge*> *Edges;
 public:
-    vector<vertex*> *vertices;
-    map<vertex*, bool> iteration_map;
+
     Graph();
-    void AddVertex(vertex* new_vertex) const;
-    bool isVertexIterated(vertex* v);
+    void addVertex(Vertex* new_vertex);
+    void addEdge(edge* new_edge);
 
 };
 

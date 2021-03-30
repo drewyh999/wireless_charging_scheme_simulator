@@ -5,24 +5,16 @@
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_POINT_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_POINT_H
 #include<cmath>
+#include "charger.h"
+#include<vector>
+#include "coordinates.h"
 
-class point {
-protected:
-    double x;
-    double y;
+class Point : public coordinates{
 public:
 
-    point(double x, double y);
+    Point(double x, double y);
 
-    [[nodiscard]] double getX() const;
-
-    void setX(double x);
-
-    [[nodiscard]] double getY() const;
-
-    void setY(double y);
-
-    double getDistance(point* point) const;
+    double chargeToPoint(std::vector<charger*> *chargers);//Without considering the P_c power,recharge to Point only
 };
 
 
