@@ -6,6 +6,7 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_BASE_SOLUTION_H
 
 #include<iostream>
+#include"graph.h"
 class Solution {
 protected:
     Graph *graph;
