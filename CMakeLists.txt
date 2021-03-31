@@ -3,6 +3,8 @@ set(PROJECT_NAME wireless_charging_scheme_simulator)
 project(${PROJECT_NAME} VERSION 0.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 add_subdirectory(Metrics)
 include_directories(Metrics)
 add_subdirectory(GraphComponents)

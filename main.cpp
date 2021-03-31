@@ -20,5 +20,6 @@ int main() {
     double v_bar = 0.5;
     auto E_max = test_edge -> chargeAlongEdge(chargers,3,P_c,v_bar);
     cout << "Edge test result is :" << E_max << endl;
+    auto a = 0;
     return 0;
 }

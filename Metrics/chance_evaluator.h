@@ -5,6 +5,7 @@
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_CHANCE_EVALUATOR_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_CHANCE_EVALUATOR_H
 #include"base_evaluator.h"
+#include"boost/math/distributions/normal.hpp"
 
 class ChanceEvaluator: public BaseEvaluator{
 private:
@@ -15,7 +16,7 @@ private:
     double E_c;
 
 
-    double getTruncatedPdfValue();
+    double getTruncatedPdfValue(double mu,double sigma);
 public:
     double getEvaluationScore() override;
 };

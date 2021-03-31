@@ -8,7 +8,8 @@ double ChanceEvaluator::getEvaluationScore() {
     return 0;
 }
 
-double ChanceEvaluator::getTruncatedPdfValue() {
-    //TODO implement PDF integral or find a lib that directly calculates CDF
-    return 0;
+double ChanceEvaluator::getTruncatedPdfValue(double mu,double sigma) {
+    boost::math::normal norm(mu,sigma);
+    auto test_value = cdf(complement(norm,0.2));
+    return test_value;
 }
