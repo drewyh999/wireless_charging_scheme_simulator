@@ -13,11 +13,10 @@ private:
     double delta_l;
     double P_c;
     double v_bar;
-    double E_c;
-
-
-    double getTruncatedPdfValue(double mu,double sigma);
+    static double getTruncatedNormalDistributionCdfValue(double mu, double sigma, double x);
 public:
+    ChanceEvaluator(Solution *solution, double pth, double deltaL, double pC, double vBar);
+
     double getEvaluationScore() override;
 };
 

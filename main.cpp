@@ -9,7 +9,7 @@ int main() {
     std::cout << "Simulator by Yuanhao Zhu\nAn undergraduate project directed by Prof. Lin Feng" << std::endl;
     cout << "Charger test:" << endl;
 
-    Edge *test_edge = new Edge(new Point(0, 0), new Point(0, 0));
+    Edge *test_edge = new Edge(new Vertex(0, 0), new Vertex(0, 0));
     double P_s = 5;
     auto *c_1 = new charger(1,3,P_s);
     auto *c_2 = new charger(2,1,P_s);

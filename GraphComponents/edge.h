@@ -13,26 +13,27 @@ using namespace std;
 
 class Edge {
     //For a line in the x-y coordinate system, it is generally expressed as y = ax + b
+    //It is mandatory to keep the second point of an Edge to be different
 
 private:
     double a; //For a
 
     double b; //For b
 
-    Point* point_1;
+     Vertex* vertex_1;
 
-    Point* point_2;
+     Vertex* vertex_2;
 public:
     [[nodiscard]] double getYbyX(double x) const;
 
     [[nodiscard]] double getXbyY(double y) const;
 
-    Edge(Point* p_1, Point* p_2);//Construct the line by two Point coordinate of
+    Edge(Vertex* p_1, Vertex* p_2);//Construct the line by two  Vertex coordinate of
                                                                 // the vertices
 
-    [[nodiscard]] Point *getPoint1() const;
+    [[nodiscard]]  Vertex *getVertex1() const;
 
-    [[nodiscard]] Point *getPoint2() const;
+    [[nodiscard]]  Vertex *getVertex2() const;
 
     bool operator==(const Edge &rhs) const;
 
@@ -40,7 +41,7 @@ public:
 
     double chargeAlongEdge(vector<charger *> *chargers, double delta_l, double P_c, double v_bar) const;
 private:
-    [[nodiscard]] Point* moveFromPoint(Point* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
+    [[nodiscard]]  Vertex* moveFromVertex( Vertex* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
     //after moving for distance on the line direction
 };
 
