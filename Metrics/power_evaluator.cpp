@@ -4,12 +4,11 @@
 
 #include "power_evaluator.h"
 
-PowerEvaluator::PowerEvaluator(Solution *solution, double pC) : BaseEvaluator(solution), P_c(pC) {}
+PowerEvaluator::PowerEvaluator(double pC) :  P_c(pC) {}
 
-double PowerEvaluator::getEvaluationScore() {
-    int n =  solution -> getGraph() -> getNumberOfVertices();
-    auto vertices =  solution -> getGraph() -> getVertices();
-    auto placement =  solution -> getChargerPlacement();
+double PowerEvaluator::getEvaluationScore(vector<charger*> *placement) {
+    int n =  graph -> getNumberOfVertices();
+    auto vertices =  graph -> getVertices();
     double sum = 0;
     for(auto & vertex : *vertices){
         double pc_under_ph = vertex -> chargeToPoint(placement);

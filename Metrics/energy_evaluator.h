@@ -14,9 +14,9 @@ private:
     double v_bar;
     double E_c;
 public:
-    EnergyEvaluator(Solution *solution, double eB, double deltaL, double pC, double vBar);
+    EnergyEvaluator(double eB, double deltaL, double pC, double vBar);
 
-    double getEvaluationScore() override;
+    double getEvaluationScore(vector<charger*> *placement) override ;
 };
 
 

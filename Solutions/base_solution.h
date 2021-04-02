@@ -7,17 +7,19 @@
 
 #include<iostream>
 #include"graph.h"
-class Solution {
+class BaseSolution {
 protected:
     Graph *graph;
     vector<charger*> *charger_placement;
 public:
 
-    Solution(Graph *graph, vector<charger *> *chargerPlacement);
+    explicit BaseSolution(Graph *graph);
 
     [[nodiscard]] Graph *getGraph() const;
 
     [[nodiscard]] vector<charger *> *getChargerPlacement() const;
+
+    virtual void iterateOptimization() = 0;
 };
 
 

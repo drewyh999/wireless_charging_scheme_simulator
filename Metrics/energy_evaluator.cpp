@@ -4,15 +4,13 @@
 
 #include "energy_evaluator.h"
 
-EnergyEvaluator::EnergyEvaluator(Solution *solution, double eB, double deltaL, double pC, double vBar) : BaseEvaluator(
-        solution), E_B(eB), delta_l(deltaL), P_c(pC), v_bar(vBar) {
+EnergyEvaluator::EnergyEvaluator(double eB, double deltaL, double pC, double vBar) : E_B(eB), delta_l(deltaL), P_c(pC), v_bar(vBar) {
       E_c =  P_c * delta_l / v_bar;
 }
 
-double EnergyEvaluator::getEvaluationScore() {
-    double number_of_edges =  solution -> getGraph() -> getNumberOfEdges();
-    auto edges =  solution -> getGraph() -> getEdges();
-    auto placement =  solution -> getChargerPlacement();
+double EnergyEvaluator::getEvaluationScore(vector<charger*> *placement) {
+    double number_of_edges =  graph -> getNumberOfEdges();
+    auto edges =  graph-> getEdges();
     double sum = 0;
     double emax = 0;
     double ec_under_emax_minus_eb = 0;

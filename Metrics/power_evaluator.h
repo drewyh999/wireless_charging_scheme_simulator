@@ -10,9 +10,9 @@ class PowerEvaluator: public BaseEvaluator{
 private:
     double P_c;
 public:
-    PowerEvaluator(Solution *solution, double pC);
+    explicit PowerEvaluator(double pC);
 
-    double getEvaluationScore() override;
+    double getEvaluationScore(vector<charger*> *placement) override ;
 
 };
 

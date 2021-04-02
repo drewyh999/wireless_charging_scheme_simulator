@@ -4,15 +4,15 @@
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_BASE_EVALUATOR_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_BASE_EVALUATOR_H
-#include<base_solution.h>
+#include"graph.h"
+#include "charger.h"
 
 class BaseEvaluator {
 protected:
-    Solution* solution;
+    Graph *graph;
 public:
-    explicit BaseEvaluator(Solution *solution);
 
-    virtual double getEvaluationScore() = 0;
+    virtual double getEvaluationScore(vector<charger*> *placement) = 0;
 };
 
 

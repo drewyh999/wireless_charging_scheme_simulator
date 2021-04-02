@@ -6,13 +6,15 @@
 #include "base_solution.h"
 
 
-Solution::Solution(Graph *graph, std::vector<charger *> *chargerPlacement) : graph(graph),
-                                                                             charger_placement(chargerPlacement) {}
 
-Graph *Solution::getGraph() const {
+Graph *BaseSolution::getGraph() const {
     return graph;
 }
 
-vector<charger *> *Solution::getChargerPlacement() const {
+vector<charger *> *BaseSolution::getChargerPlacement() const {
     return charger_placement;
+}
+
+BaseSolution::BaseSolution(Graph *graph) : graph(graph) {
+    charger_placement = new vector<charger*>();
 }
