@@ -49,18 +49,18 @@ bool Edge::operator!=(const Edge &rhs) const {
     return !(rhs == *this);
 }
 
-double Edge::chargeAlongEdge(vector<charger *> *chargers, double delta_l, double P_c, double v_bar) const {
+double Edge::chargeAlongEdge(vector<Charger *> *chargers, double delta_l, double P_c, double v_bar) const {
     Vertex* start_point = this->getVertex1();
     double vertex_distance = start_point -> getDistance(this->getVertex2());
 
     int M = vertex_distance / delta_l;
 
     double travel_time = delta_l / v_bar;
-    double E_max = (P_c - start_point->chargeToPoint(chargers)) * travel_time;
+    double E_max = (P_c - start_point -> chargeToPoint(chargers)) * travel_time;
     for(int i = 0;i < M; ++i){
         double temp_E = 0;
+        Vertex* temp_point;
         for(int j = 0;j < i; ++j){
-            Vertex* temp_point;
             if(j == 0){
                 //First time move it to the 1/2 delta_l away from start Vertex
                 temp_point = this -> moveFromVertex(start_point,delta_l / 2);
@@ -71,9 +71,7 @@ double Edge::chargeAlongEdge(vector<charger *> *chargers, double delta_l, double
             }
             temp_E += (P_c - temp_point->chargeToPoint(chargers)) * travel_time;
         }
-        if(temp_E > E_max){
-            E_max = temp_E;
-        }
+        E_max = temp_E > E_max ? temp_E : E_max;
     }
     return E_max;
 }

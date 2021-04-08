@@ -11,10 +11,10 @@ Graph *BaseSolution::getGraph() const {
     return graph;
 }
 
-vector<charger *> *BaseSolution::getChargerPlacement() const {
+vector<Charger *> *BaseSolution::getChargerPlacement() const {
     return charger_placement;
 }
 
 BaseSolution::BaseSolution(Graph *graph) : graph(graph) {
-    charger_placement = new vector<charger*>();
+    charger_placement = new vector<Charger*>();
 }

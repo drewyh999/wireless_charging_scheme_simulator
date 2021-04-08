@@ -11,8 +11,9 @@ class BaseEvaluator {
 protected:
     Graph *graph;
 public:
+    BaseEvaluator(Graph *graph);
 
-    virtual double getEvaluationScore(vector<charger*> *placement) = 0;
+    virtual double getEvaluationScore(vector<Charger*> *placement) = 0;
 };
 
 

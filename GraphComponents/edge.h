@@ -39,7 +39,7 @@ public:
 
     bool operator!=(const Edge &rhs) const;
 
-    double chargeAlongEdge(vector<charger *> *chargers, double delta_l, double P_c, double v_bar) const;
+    double chargeAlongEdge(vector<Charger *> *chargers, double delta_l, double P_c, double v_bar) const;
 private:
     [[nodiscard]]  Vertex* moveFromVertex( Vertex* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
     //after moving for distance on the line direction

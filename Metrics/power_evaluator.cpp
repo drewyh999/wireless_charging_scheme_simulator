@@ -4,9 +4,9 @@
 
 #include "power_evaluator.h"
 
-PowerEvaluator::PowerEvaluator(double pC) :  P_c(pC) {}
 
-double PowerEvaluator::getEvaluationScore(vector<charger*> *placement) {
+
+double PowerEvaluator::getEvaluationScore(vector<Charger*> *placement) {
     int n =  graph -> getNumberOfVertices();
     auto vertices =  graph -> getVertices();
     double sum = 0;
@@ -16,4 +16,6 @@ double PowerEvaluator::getEvaluationScore(vector<charger*> *placement) {
     }
     return sum / n;
 }
+
+PowerEvaluator::PowerEvaluator(Graph *graph, double pC) : BaseEvaluator(graph), P_c(pC) {}
 

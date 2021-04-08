@@ -4,17 +4,21 @@
 
 #include "coordinates.h"
 
-coordinates::coordinates(double x, double y) : x(x), y(y) {}
+Coordinates::Coordinates(double x, double y) : x(x), y(y) {}
 
-double coordinates::getX() const {
+double Coordinates::getX() const {
     return x;
 }
 
-double coordinates::getY() const {
+double Coordinates::getY() const {
     return y;
 }
 
-double coordinates::getDistance(coordinates *point) const {
+double Coordinates::getDistance(Coordinates *point) const {
     return sqrt(pow(point -> getX() - this -> getX(),2) +
     pow(point -> getY() - this -> getY(),2));
+}
+
+std::string Coordinates::toString() const {
+    return std::to_string(x) + std::string(",") +std::to_string(y);
 }

@@ -3,24 +3,33 @@
 #include "edge.h"
 #include "charger.h"
 #include "chance_evaluator.h"
+#include "greedy_heuristic_solution.h"
 using namespace std;
 int main() {
     std::cout << "Simulator by Yuanhao Zhu\nAn undergraduate project directed by Prof. Lin Feng" << std::endl;
-    cout << "Charger test:" << endl;
+    auto graph = new Graph();
+    auto p_1 = new Vertex(0.3,1.9);
+    auto p_2 = new Vertex(1,3.3);
+    auto p_3 = new Vertex(2.2,0.3);
+    auto p_4 = new Vertex(3.5,3.2);
+    graph -> addVertex(p_1);
+    graph -> addVertex(p_2);
+    graph -> addVertex(p_3);
+    graph -> addVertex(p_4);
 
-    Edge *test_edge = new Edge(new Vertex(0, 0), new Vertex(0, 0));
-    double P_s = 5;
-    auto *c_1 = new charger(1,3,P_s);
-    auto *c_2 = new charger(2,1,P_s);
-    auto chargers = new vector<charger*>();
-    chargers -> push_back(c_1);
-    chargers -> push_back(c_2);
-    double P_c = 4;
-    double v_bar = 0.5;
+    graph -> addEdge(new Edge(p_1, p_2));
+    graph -> addEdge(new Edge(p_2,p_3));
+    graph -> addEdge(new Edge(p_2,p_4));
+    graph -> addEdge(new Edge(p_1,p_3));
 
-    auto E_max = test_edge -> chargeAlongEdge(chargers,3,P_c,v_bar);
-    cout << "Edge test result is :" << E_max << endl;
-    cout << "Chance evaluator test:" << endl;
-    auto a = 0;
+    auto solution = new GreedyHeuristicSolution(graph,1);
+
+    solution -> solve(2,0.007,0.027,V_BAR,0.9);
+
+    cout << "Solution test:" << endl;
+    for(auto & charger: *(solution -> getChargerPlacement())){
+        cout << charger -> toString() << endl;
+    }
+
     return 0;
 }

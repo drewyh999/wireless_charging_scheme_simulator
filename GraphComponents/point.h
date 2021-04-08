@@ -9,12 +9,12 @@
 #include<vector>
 #include "coordinates.h"
 
-class Point : public coordinates{
+class Point : public Coordinates{
 public:
 
     Point(double x, double y);
 
-    double chargeToPoint(std::vector<charger*> *chargers);//Without considering the P_c power,recharge to Point only
+    double chargeToPoint(std::vector<Charger*> *chargers);//Without considering the P_c power,recharge to Point only
 };
 
 

@@ -11,10 +11,7 @@ double ChanceEvaluator::getTruncatedNormalDistributionCdfValue(double mu, double
     return cdf_value;
 }
 
-ChanceEvaluator::ChanceEvaluator(double pth, double deltaL, double pC, double vBar)
-        : pth(pth), delta_l(deltaL), P_c(pC), v_bar(vBar) {}
-
-double ChanceEvaluator::getEvaluationScore(vector<charger *> *placement) {
+double ChanceEvaluator::getEvaluationScore(vector<Charger *> *placement) {
     auto edges = graph -> getEdges();
     auto number_of_edges = graph -> getNumberOfEdges();
     double E_max = 0;
@@ -34,3 +31,6 @@ double ChanceEvaluator::getEvaluationScore(vector<charger *> *placement) {
     }
     return sum / number_of_edges;
 }
+
+ChanceEvaluator::ChanceEvaluator(Graph *graph, double pth, double deltaL, double pC, double vBar) : BaseEvaluator(
+        graph), pth(pth), delta_l(deltaL), P_c(pC), v_bar(vBar) {}

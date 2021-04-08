@@ -15,9 +15,9 @@ private:
     double v_bar;
     static double getTruncatedNormalDistributionCdfValue(double mu, double sigma, double x);
 public:
-    ChanceEvaluator(double pth, double deltaL, double pC, double vBar);
+    ChanceEvaluator(Graph *graph, double pth, double deltaL, double pC, double vBar);
 
-    double getEvaluationScore(vector<charger*> *placement) override;
+    double getEvaluationScore(vector<Charger*> *placement) override;
 
 };
 

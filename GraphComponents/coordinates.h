@@ -5,20 +5,23 @@
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_COORDINATES_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_COORDINATES_H
 #include<cmath>
+#include<string>
 
-class coordinates {
+class Coordinates {
 protected:
     double x;
     double y;
 public:
 
-    coordinates(double x, double y);
+    Coordinates(double x, double y);
 
     [[nodiscard]] double getX() const;
 
     [[nodiscard]] double getY() const;
 
-    double getDistance(coordinates* point) const;
+    double getDistance(Coordinates* point) const;
+
+    [[nodiscard]] std::string toString() const;
 };
 
 

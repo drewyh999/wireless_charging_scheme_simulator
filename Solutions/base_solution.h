@@ -7,19 +7,27 @@
 
 #include<iostream>
 #include"graph.h"
+#include "chance_evaluator.h"
+#include "energy_evaluator.h"
+#include "power_evaluator.h"
+#include "config.h"
+
 class BaseSolution {
 protected:
     Graph *graph;
-    vector<charger*> *charger_placement;
+    vector<Charger*> *charger_placement;
 public:
 
     explicit BaseSolution(Graph *graph);
 
     [[nodiscard]] Graph *getGraph() const;
 
-    [[nodiscard]] vector<charger *> *getChargerPlacement() const;
+    [[nodiscard]] vector<Charger *> *getChargerPlacement() const;
 
-    virtual void iterateOptimization() = 0;
+    // The parameters Ps, Pc, eB, v_bar could be controlled variables and varies through different iterations
+    // of a simulation
+    //Delta L and Mu / Sigma is supposed to constant during one simulation.
+    virtual void solve(double Ps, double Pc, double eB, double v_bar, double pth) = 0;
 };
 
 
