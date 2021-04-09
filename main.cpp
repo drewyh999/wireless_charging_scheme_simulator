@@ -24,7 +24,7 @@ int main() {
 
     auto solution = new GreedyHeuristicSolution(graph,1);
 
-    solution -> solve(2,0.007,0.027,V_BAR,0.9);
+    solution -> solve(2,0.007,0.000027,V_BAR,0.9);
 
     cout << "Solution test:" << endl;
     for(auto & charger: *(solution -> getChargerPlacement())){

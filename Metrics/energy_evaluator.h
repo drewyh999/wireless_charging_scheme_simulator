@@ -12,7 +12,6 @@ private:
     double delta_l;
     double P_c;
     double v_bar;
-    double E_c;
 public:
     EnergyEvaluator(Graph *graph, double eB, double deltaL, double pC, double vBar);
 

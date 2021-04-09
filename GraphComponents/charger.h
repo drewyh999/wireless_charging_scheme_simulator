@@ -11,7 +11,7 @@
 
 class Charger: public Coordinates{
 private:
-    double tau = 0.003;//For the constant in the recharging model
+    double tau = 0.001;//For the constant in the recharging model
     double Ps;//For the chargers transmit power
     double epsilon = 0.2316;//For the small constant that keeps the distance larger than 0
     double dth = 15;

@@ -10,7 +10,7 @@ double Charger::rechargeToDestination(Coordinates *destination) {
         return 0;
     }
     else{
-        return (this -> tau * this -> Ps)/pow(this -> dth + this -> epsilon,2);
+        return (tau * Ps)/pow(epsilon + distance,2);
     }
 }
 

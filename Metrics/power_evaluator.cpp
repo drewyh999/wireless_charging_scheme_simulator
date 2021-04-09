@@ -11,7 +11,7 @@ double PowerEvaluator::getEvaluationScore(vector<Charger*> *placement) {
     auto vertices =  graph -> getVertices();
     double sum = 0;
     for(auto & vertex : *vertices){
-        double pc_under_ph = vertex -> chargeToPoint(placement);
+        double pc_under_ph = (vertex -> chargeToPoint(placement)) / P_c;
         sum += pc_under_ph < 1 ? pc_under_ph : 1;
     }
     return sum / n;
