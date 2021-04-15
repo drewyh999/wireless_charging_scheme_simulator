@@ -14,6 +14,7 @@ class Graph {
 private:
     vector<Vertex*> *vertices;
     vector<Edge*> *Edges;
+    void generateDegree();
 public:
 
     Graph();

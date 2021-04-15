@@ -7,9 +7,9 @@
 
 #include<cmath>
 #include<vector>
-#include"coordinates.h"
+#include"coordinate.h"
 
-class Charger: public Coordinates{
+class Charger: public Coordinate{
 private:
     double tau = 0.001;//For the constant in the recharging model
     double Ps;//For the chargers transmit power
@@ -18,7 +18,7 @@ private:
 public:
     Charger(double x, double y, double ps);
 
-    double rechargeToDestination(Coordinates *destination);
+    double rechargeToDestination(Coordinate *destination);
 
 };
 

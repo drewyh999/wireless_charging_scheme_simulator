@@ -24,9 +24,11 @@ public:
 
     [[nodiscard]] vector<Charger *> *getChargerPlacement() const;
 
+    [[nodiscard]] int getNumberOfChargers() const;
+
     // The parameters Ps, Pc, eB, v_bar could be controlled variables and varies through different iterations
     // of a simulation
-    //Delta L and Mu / Sigma is supposed to constant during one simulation.
+    //Delta L and Mu , Sigma is supposed to constant during one simulation.
     virtual void solve(double Ps, double Pc, double eB, double v_bar, double pth) = 0;
 };
 

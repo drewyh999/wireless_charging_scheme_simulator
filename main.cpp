@@ -22,14 +22,23 @@ int main() {
     graph -> addEdge(new Edge(p_2,p_4));
     graph -> addEdge(new Edge(p_1,p_3));
 
+    cout << "Solution test:" << endl;
+
     auto solution = new GreedyHeuristicSolution(graph,1);
 
     solution -> solve(2,0.007,0.000027,V_BAR,0.9);
 
-    cout << "Solution test:" << endl;
+    cout << "Solution charger placement set:" << endl;
+
     for(auto & charger: *(solution -> getChargerPlacement())){
         cout << charger -> toString() << endl;
     }
+    cout << "Number of chargers placed :" << solution -> getNumberOfChargers() << endl;
 
+    auto v_1 = new Coordinate(1, 1);
+    auto v_2 = new Coordinate(1, 1);
+    if((*v_1) == (*v_2)){
+        cout << "Yes" << endl;
+    }
     return 0;
 }

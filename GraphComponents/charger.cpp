@@ -4,7 +4,7 @@
 
 #include "charger.h"
 
-double Charger::rechargeToDestination(Coordinates *destination) {
+double Charger::rechargeToDestination(Coordinate *destination) {
     double distance = this -> getDistance(destination);
     if(distance > dth){
         return 0;
@@ -14,5 +14,5 @@ double Charger::rechargeToDestination(Coordinates *destination) {
     }
 }
 
-Charger::Charger(double x, double y, double ps) : Coordinates(x, y), Ps(ps) {}
+Charger::Charger(double x, double y, double ps) : Coordinate(x, y), Ps(ps) {}
 

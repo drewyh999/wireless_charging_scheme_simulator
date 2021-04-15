@@ -13,4 +13,4 @@ double Point::chargeToPoint(std::vector<Charger *> *chargers) {
     return P_h;
 }
 
-Point::Point(double x, double y) : Coordinates(x, y) {}
+Point::Point(double x, double y) : Coordinate(x, y) {}

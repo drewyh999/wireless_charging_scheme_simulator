@@ -5,16 +5,17 @@
 #include "graph.h"
 
 Graph::Graph() {
-    this -> vertices = new vector<Vertex*>();
-    this -> Edges = new vector<Edge*>();
+     vertices = new vector<Vertex*>();
+     Edges = new vector<Edge*>();
 }
 
 void Graph::addVertex(Vertex *new_vertex)  {
-    this -> vertices-> push_back(new_vertex);
+     vertices-> push_back(new_vertex);
 }
 
 void Graph::addEdge(Edge* new_edge) {
-    this -> Edges -> push_back(new_edge);
+     Edges -> push_back(new_edge);
+     generateDegree();
 }
 
 vector<Vertex *> *Graph::getVertices() const {
@@ -26,11 +27,23 @@ vector<Edge *> *Graph::getEdges() const {
 }
 
 int Graph::getNumberOfEdges() {
-    return this -> Edges -> size();
+    return  Edges -> size();
 }
 
 int Graph::getNumberOfVertices() {
-    return this -> vertices -> size();
+    return  vertices -> size();
+}
+
+void Graph::generateDegree() {
+    for(auto & vertex : *vertices) {
+        int sum = 0;
+        for (auto &edge  : *Edges) {
+            if (*(edge->getVertex2()) == (*vertex) || *(edge->getVertex1()) == *(vertex)) {
+                sum++;
+            }
+        }
+        vertex->setDegree(sum);
+    }
 }
 
 

@@ -18,3 +18,7 @@ vector<Charger *> *BaseSolution::getChargerPlacement() const {
 BaseSolution::BaseSolution(Graph *graph) : graph(graph) {
     charger_placement = new vector<Charger*>();
 }
+
+int BaseSolution::getNumberOfChargers() const {
+    return charger_placement -> size();
+}

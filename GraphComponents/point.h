@@ -7,9 +7,9 @@
 #include<cmath>
 #include "charger.h"
 #include<vector>
-#include "coordinates.h"
+#include "coordinate.h"
 
-class Point : public Coordinates{
+class Point : public Coordinate{
 public:
 
     Point(double x, double y);

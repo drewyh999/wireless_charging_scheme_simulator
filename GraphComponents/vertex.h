@@ -15,6 +15,7 @@ private:
     //Private property for the truncated normal distribution the stay time is distributed
     double Mu;//The average stay time
     double Sigma; //The standard deviation of the stay time
+    int degree;
 public:
 
     Vertex(double x, double y);
@@ -22,6 +23,11 @@ public:
     [[nodiscard]] double getMu() const;
 
     [[nodiscard]] double getSigma() const;
+
+    void setDegree(int degree);
+
+    static bool comp(Vertex *a, Vertex *b);
+
 };
 
 

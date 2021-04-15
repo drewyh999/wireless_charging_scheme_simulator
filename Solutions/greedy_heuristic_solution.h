@@ -9,7 +9,7 @@
 class GreedyHeuristicSolution: public BaseSolution {
 private:
     int granularity;
-    vector<Coordinates*> *candidate_coordinates;
+    vector<Coordinate*> *candidate_coordinates;
 public:
     GreedyHeuristicSolution(Graph *graph, int granularity);
 

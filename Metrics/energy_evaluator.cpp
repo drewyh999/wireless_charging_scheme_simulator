@@ -18,7 +18,7 @@ double EnergyEvaluator::getEvaluationScore(vector<Charger*> *placement) {
         emax = edge -> chargeAlongEdge(placement,  delta_l,   P_c,   v_bar);
         edge_distance = edge -> getVertex1() -> getDistance(edge -> getVertex2());
         E_c = P_c * (edge_distance / v_bar);
-        ec_under_emax_minus_eb = (emax - E_B)/  E_c;
+        ec_under_emax_minus_eb = (emax - E_B) / E_c;
         part_value = (1 - ec_under_emax_minus_eb);
         sum += part_value < 1 ? part_value : 1;
     }
