@@ -24,6 +24,10 @@ public:
     [[nodiscard]] std::string toString() const;
 
     bool operator==(const Coordinate &rhs) const;
+
+    void setX(double x);
+
+    void setY(double y);
 };
 
 

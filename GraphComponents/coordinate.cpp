@@ -28,4 +28,12 @@ bool Coordinate::operator==(const Coordinate &rhs) const {
            y == rhs.y;
 }
 
+void Coordinate::setX(double x) {
+    Coordinate::x = x;
+}
+
+void Coordinate::setY(double y) {
+    Coordinate::y = y;
+}
+
 

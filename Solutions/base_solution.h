@@ -16,6 +16,7 @@ class BaseSolution {
 protected:
     Graph *graph;
     vector<Charger*> *charger_placement;
+    int getEvaluationSum(vector<Charger*> *charger_placement, ChanceEvaluator *chance_evaluator, EnergyEvaluator *energy_evaluator, PowerEvaluator *power_evaluator);
 public:
 
     explicit BaseSolution(Graph *graph);

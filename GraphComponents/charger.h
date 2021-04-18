@@ -20,6 +20,8 @@ public:
 
     double rechargeToDestination(Coordinate *destination);
 
+
+
 };
 
 

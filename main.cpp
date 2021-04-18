@@ -4,6 +4,7 @@
 #include "charger.h"
 #include "chance_evaluator.h"
 #include "greedy_heuristic_solution.h"
+#include "pso_based_solution.h"
 using namespace std;
 int main() {
     std::cout << "Simulator by Yuanhao Zhu\nAn undergraduate project directed by Prof. Lin Feng" << std::endl;
@@ -40,5 +41,18 @@ int main() {
     if((*v_1) == (*v_2)){
         cout << "Yes" << endl;
     }
+
+    cout << "PSO solution test" << endl;
+
+    auto pso_solution = new PsoBasedSolution(graph);
+    pso_solution -> solve(2,0.007,0.000027,V_BAR,0.9);
+
+    cout << "Solution charger placement set:" << endl;
+
+    for(auto & charger: *(pso_solution -> getChargerPlacement())){
+        cout << charger -> toString() << endl;
+    }
+    cout << "Number of chargers placed :" << pso_solution -> getNumberOfChargers() << endl;
+
     return 0;
 }
