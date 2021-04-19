@@ -6,6 +6,7 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_PSO_BASED_SOLUTION_H
 #include "base_solution.h"
 
+
 class PsoBasedSolution: public BaseSolution {
 private:
     vector<Charger*>* psoSolver(double Ps, int k,Graph *subgraph,ChanceEvaluator *c_evaluator, PowerEvaluator *p_evaluator, EnergyEvaluator *e_evaluator);
@@ -16,7 +17,6 @@ private:
 public:
     explicit PsoBasedSolution(Graph *graph);
     void solve(double Ps, double Pc, double eB, double v_bar, double pth) override ;
-
 };
 
 

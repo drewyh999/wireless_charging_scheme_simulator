@@ -11,12 +11,23 @@
 #include "energy_evaluator.h"
 #include "power_evaluator.h"
 #include "config.h"
+#include <future>
+
+typedef struct{
+    vector<Charger*> *charger_placement;
+    ChanceEvaluator *chance_evaluator;
+    EnergyEvaluator *energy_evaluator;
+    PowerEvaluator *power_evaluator;
+    promise<double> &promiseobj;
+}evaluation_params;
 
 class BaseSolution {
 protected:
     Graph *graph;
     vector<Charger*> *charger_placement;
-    double getEvaluationSum(vector<Charger*> *charger_placement, ChanceEvaluator *chance_evaluator, EnergyEvaluator *energy_evaluator, PowerEvaluator *power_evaluator);
+    static double getEvaluationSum(vector<Charger*> *charger_placement, ChanceEvaluator *chance_evaluator, EnergyEvaluator *energy_evaluator, PowerEvaluator *power_evaluator);
+    //For multi-threading
+    static void getEvaluationSum_m(evaluation_params &params);
 public:
 
     explicit BaseSolution(Graph *graph);

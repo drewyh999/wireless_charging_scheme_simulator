@@ -2,6 +2,7 @@
 // Created by 朱原昊 on 2021/4/11.
 //
 
+
 #include "pso_based_solution.h"
 
 void printProgress(double percentage) {
@@ -35,10 +36,7 @@ void PsoBasedSolution::subgraphDivisioning() {
         for(auto * edge : *edges){
             auto point_a = edge -> getVertex1();
             auto point_b = edge -> getVertex2();
-            if(point_a == vertex){
-                subgraph -> addEdge(edge);
-            }
-            else if(point_b == vertex){
+            if(point_a == vertex || point_b == vertex){
                 subgraph -> addEdge(edge);
             }
         }
@@ -81,11 +79,11 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
     // The vector containing all particle_position
     vector<vector<double>> particle_positions(PSO_POPULATION_SIZE, init_particle);
 
-
-
     vector<vector<double>> particle_speed(PSO_POPULATION_SIZE, vector<double>(2 * k, 0));
 
-    double Q = 0;
+//    double Q = 0;
+
+    vector<double> Q(PSO_POPULATION_SIZE,0);
 
     double max_Q_global = 0;
 
@@ -93,10 +91,46 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
 
     auto current_placement_vector = chargerToCoordinateVector(charger_placement);
 
+    vector<std::promise<double>*> promises(PSO_POPULATION_SIZE);
+
+    vector<std::future<double>*> futures(PSO_POPULATION_SIZE);
+
+    vector<thread*> threads;
 
     cout << "\nRunning PSO at K = " << k << endl;
+    /*
+//    for(int iter = 0; iter < PSO_ITERATION_TIME; ++iter){
+//        for(int p_i = 0; p_i < PSO_POPULATION_SIZE; ++p_i){
+//            vector<double> temp_vec(current_placement_vector);
+//            for(int j = 0;j < 2 * k; ++j){
+//                particle_speed[p_i][j] = PSO_OMEGA * particle_speed[p_i][j]
+//                                         + PSO_PHI_P * dist(mt) * (personal_best[p_i][j] - particle_positions[p_i][j])
+//                                         + PSO_PHI_G * dist(mt) * (global_best[j] - particle_positions[p_i][j]);
+//                particle_positions[p_i][j] += particle_speed[p_i][j];
+////                cout << "New random " << to_string(dist(mt)) << endl;
+////                cout << "New speed " << to_string(particle_speed[p_i][j]) << endl;
+//                temp_vec.push_back(particle_positions[p_i][j]);
+//            }
+//            auto temp_placement = coordinateVectorToCharger(temp_vec,Ps);
+//            Q = getEvaluationSum(temp_placement,c_evaluator,e_evaluator,p_evaluator) ;
+//            if(Q > max_Q_global){
+//                max_Q_global = Q;
+//                global_best.assign(particle_positions[p_i].begin(),particle_positions[p_i].end());
+//            }
+//            if(Q > max_Q_personal[p_i]){
+//                max_Q_personal[p_i] = Q;
+//                personal_best[p_i].assign(particle_positions[p_i].begin(),particle_positions[p_i].end());
+//            }
+//
+//        }
+//        printProgress(iter/(double)PSO_ITERATION_TIME);
+//    }*/
+
+
     for(int iter = 0; iter < PSO_ITERATION_TIME; ++iter){
         for(int p_i = 0; p_i < PSO_POPULATION_SIZE; ++p_i){
+            promise<double> p;
+            future<double> f = p.get_future();
             vector<double> temp_vec(current_placement_vector);
             for(int j = 0;j < 2 * k; ++j){
                 particle_speed[p_i][j] = PSO_OMEGA * particle_speed[p_i][j]
@@ -108,19 +142,25 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
                 temp_vec.push_back(particle_positions[p_i][j]);
             }
             auto temp_placement = coordinateVectorToCharger(temp_vec,Ps);
-            Q = getEvaluationSum(temp_placement,c_evaluator,e_evaluator,p_evaluator) ;
-            if(Q > max_Q_global){
-                max_Q_global = Q;
-                global_best.assign(particle_positions[p_i].begin(),particle_positions[p_i].end());
+            evaluation_params params{temp_placement,c_evaluator,e_evaluator,p_evaluator,p};
+            auto th = new thread(getEvaluationSum_m,ref(params));
+            threads.push_back(th);
+            Q[p_i] = f.get();
+        }
+        for(int i = 0;i < PSO_POPULATION_SIZE; ++i){
+            threads[i] -> join();
+            if(Q[i] > max_Q_global){
+                max_Q_global = Q[i];
+                global_best.assign(particle_positions[i].begin(),particle_positions[i].end());
             }
-            if(Q > max_Q_personal[p_i]){
-                max_Q_personal[p_i] = Q;
-                personal_best[p_i].assign(particle_positions[p_i].begin(),particle_positions[p_i].end());
+            if(Q[i] > max_Q_personal[i]){
+                max_Q_personal[i] = Q[i];
+                personal_best[i].assign(particle_positions[i].begin(),particle_positions[i].end());
             }
-
         }
         printProgress(iter/(double)PSO_ITERATION_TIME);
     }
+
     cout << "\nGlobal best positions ";
     for(auto & item : global_best){
         current_placement_vector.push_back(item);

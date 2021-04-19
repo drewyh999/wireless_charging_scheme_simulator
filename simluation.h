@@ -1,0 +1,18 @@
+//
+// Created by 朱原昊 on 2021/4/19.
+//
+
+#ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_SIMLUATION_H
+#define WIRELESS_CHARGING_SCHEME_SIMULATOR_SIMLUATION_H
+
+
+class simluation {
+private:
+
+public:
+
+
+};
+
+
+#endif //WIRELESS_CHARGING_SCHEME_SIMULATOR_SIMLUATION_H
