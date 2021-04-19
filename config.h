@@ -4,16 +4,18 @@
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_CONFIG_H
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_CONFIG_H
+#define PBSTR "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
+#define PBWIDTH 60
 #define MU_RANGE_LOW 2.0
 #define MU_RANGE_HIGH 6.0
 #define DELTA_L 0.25
 #define V_BAR 0.5
 #define PSO_SUBGRAPH_DIVISION_THRESHOLD 5
-#define PSO_POPULATION_SIZE 100
-#define PSO_ITERATION_TIME 2000
-#define PSO_OMEGA 0.6
-#define PSO_PHI_P 2
-#define PSO_PHI_G 2
+#define PSO_POPULATION_SIZE 30
+#define PSO_ITERATION_TIME 500
+#define PSO_OMEGA 0.7
+#define PSO_PHI_P 1
+#define PSO_PHI_G 1
 
 
 #endif //WIRELESS_CHARGING_SCHEME_SIMULATOR_CONFIG_H

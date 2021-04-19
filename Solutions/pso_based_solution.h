@@ -11,8 +11,8 @@ private:
     vector<Charger*>* psoSolver(double Ps, int k,Graph *subgraph,ChanceEvaluator *c_evaluator, PowerEvaluator *p_evaluator, EnergyEvaluator *e_evaluator);
     void subgraphDivisioning();
     vector<Graph *> *subgraphs;
-    static vector<int> chargerToCoordinateVector(vector<Charger*>* placement);
-    static vector<Charger*>* coordinateVectorToCharger(vector<int> vec, double Ps);
+    static vector<double> chargerToCoordinateVector(vector<Charger*>* placement);
+    static vector<Charger*>* coordinateVectorToCharger(vector<double> vec, double Ps);
 public:
     explicit PsoBasedSolution(Graph *graph);
     void solve(double Ps, double Pc, double eB, double v_bar, double pth) override ;

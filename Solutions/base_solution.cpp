@@ -23,11 +23,11 @@ int BaseSolution::getNumberOfChargers() const {
     return charger_placement -> size();
 }
 
-int BaseSolution::getEvaluationSum(vector<Charger *> *charger_placement, ChanceEvaluator *chance_evaluator,
+double BaseSolution::getEvaluationSum(vector<Charger *> *placement, ChanceEvaluator *chance_evaluator,
                                    EnergyEvaluator *energy_evaluator, PowerEvaluator *power_evaluator) {
-    double e_value = energy_evaluator -> getEvaluationScore(charger_placement);
-    double c_value = chance_evaluator -> getEvaluationScore(charger_placement);
-    double p_value = power_evaluator -> getEvaluationScore(charger_placement);
-    auto Q = e_value + c_value + p_value;
+    double e_value = energy_evaluator -> getEvaluationScore(placement);
+    double c_value = chance_evaluator -> getEvaluationScore(placement);
+    double p_value = power_evaluator -> getEvaluationScore(placement);
+    double Q = e_value + c_value + p_value;
     return Q;
 }
