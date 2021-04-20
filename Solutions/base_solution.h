@@ -12,6 +12,7 @@
 #include "power_evaluator.h"
 #include "config.h"
 #include <future>
+#include <chrono>
 
 typedef struct{
     vector<Charger*> *charger_placement;
