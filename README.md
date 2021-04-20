@@ -1,5 +1,5 @@
 # wireless_charging_scheme_simulator
-> An undergraduate project in SCU directed by [Prof. Lin](http://cs.scu.edu.cn/info/1292/13645.htm)
+> An undergraduate project in SiChuan University directed by [Prof. Lin](http://cs.scu.edu.cn/info/1292/13645.htm)
 
 Simulated the solutions in the following thesis:
 
