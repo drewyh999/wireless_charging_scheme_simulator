@@ -6,6 +6,7 @@
 #define WIRELESS_CHARGING_SCHEME_SIMULATOR_BASE_EVALUATOR_H
 #include"graph.h"
 #include "charger.h"
+#include<future>
 
 class BaseEvaluator {
 protected:

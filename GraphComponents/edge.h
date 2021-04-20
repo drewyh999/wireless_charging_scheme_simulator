@@ -24,7 +24,7 @@ private:
 
      Vertex* vertex_2;
 
-    [[nodiscard]]  Vertex* moveFromVertex( Vertex* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
+    [[nodiscard]]  Point* moveFromVertex( Point* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
     //after moving for distance on the line direction
 public:
     [[nodiscard]] double getYbyX(double x) const;

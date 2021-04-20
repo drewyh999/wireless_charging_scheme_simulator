@@ -6,11 +6,11 @@
 
 
 
-Vertex* Edge::moveFromVertex(Vertex* start_point, double distance) const {
+Point* Edge::moveFromVertex(Point* start_point, double distance) const {
     double cosine = cos(atan(this -> a));
     double new_x = start_point -> getX() + distance * cosine;
     double new_y = this -> getYbyX(new_x);
-    return new Vertex(new_x, new_y);
+    return new Point(new_x, new_y);
 }
 
 double Edge::getYbyX(double x) const {
@@ -50,7 +50,7 @@ bool Edge::operator!=(const Edge &rhs) const {
 }
 
 double Edge::chargeAlongEdge(vector<Charger *> *chargers, double delta_l, double P_c, double v_bar) const {
-    Vertex* start_point = this->getVertex1();
+    Point* start_point = this->getVertex1();
     double vertex_distance = start_point -> getDistance(this->getVertex2());
 
     int M = vertex_distance / delta_l;
@@ -59,7 +59,7 @@ double Edge::chargeAlongEdge(vector<Charger *> *chargers, double delta_l, double
     double E_max = (P_c - start_point -> chargeToPoint(chargers)) * travel_time;
     for(int i = 0;i < M; ++i){
         double temp_E = 0;
-        Vertex* temp_point;
+        Point* temp_point;
         for(int j = 0;j < i; ++j){
             if(j == 0){
                 //First time move it to the 1/2 delta_l away from start Vertex
