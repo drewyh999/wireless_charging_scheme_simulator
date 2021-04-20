@@ -20,27 +20,23 @@ private:
 
     double b; //For b
 
-     Vertex* vertex_1;
+    Vertex *vertex_1;
 
-     Vertex* vertex_2;
+    Vertex *vertex_2;
 
-    [[nodiscard]]  Point* moveFromVertex( Point* start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
+    void moveFromVertex(Point *start_point, double distance) const;//Calculate the coordinate for the x_start & y_start
     //after moving for distance on the line direction
 public:
     [[nodiscard]] double getYbyX(double x) const;
 
     [[nodiscard]] double getXbyY(double y) const;
 
-    Edge(Vertex* p_1, Vertex* p_2);//Construct the line by two  Vertex coordinate of
-                                                                // the vertices
+    Edge(Vertex *p_1, Vertex *p_2);//Construct the line by two  Vertex coordinate of
+    // the vertices
 
     [[nodiscard]]  Vertex *getVertex1() const;
 
     [[nodiscard]]  Vertex *getVertex2() const;
-
-    bool operator==(const Edge &rhs) const;
-
-    bool operator!=(const Edge &rhs) const;
 
     double chargeAlongEdge(vector<Charger *> *chargers, double delta_l, double P_c, double v_bar) const;
 

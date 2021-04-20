@@ -24,29 +24,11 @@ int BaseSolution::getNumberOfChargers() const {
 }
 
 
-
-void BaseSolution::getEvaluationSum_m(evaluation_params &params) {
-    auto energy_evaluator = params.energy_evaluator;
-    auto chance_evaluator = params.chance_evaluator;
-    auto power_evaluator = params.power_evaluator;
-    auto placement = params.charger_placement;
-    double e_value = energy_evaluator -> getEvaluationScore(placement);
-    double c_value = chance_evaluator -> getEvaluationScore(placement);
-    double p_value = power_evaluator -> getEvaluationScore(placement);
-    double Q = e_value + c_value + p_value;
-    cout << "Trying to Set Q to " << to_string(Q) << endl;
-    params.promiseobj.set_value(Q);
-    cout << "Set Q to " << to_string(Q) << endl;
-}
-
 double BaseSolution::getEvaluationSum(vector<Charger *> *placement, ChanceEvaluator *chance_evaluator,
                                    EnergyEvaluator *energy_evaluator, PowerEvaluator *power_evaluator) {
     packaged_task<double()> energyTask(bind(std::mem_fn(&EnergyEvaluator::getEvaluationScore),energy_evaluator,placement));
     auto e_future = energyTask.get_future();
     auto th = new thread(move(energyTask));
-
-//    double e_value = energy_evaluator -> getEvaluationScore(placement);
-//    double c_value = chance_evaluator -> getEvaluationScore(placement);
     packaged_task<double()> chanceTask(bind(std::mem_fn(&ChanceEvaluator::getEvaluationScore),chance_evaluator,placement));
     auto c_future = chanceTask.get_future();
     auto th_2 = new thread(move(chanceTask));

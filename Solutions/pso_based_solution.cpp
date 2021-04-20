@@ -5,13 +5,7 @@
 
 #include "pso_based_solution.h"
 
-void printProgress(double percentage) {
-    int val = (int) (percentage * 100);
-    int lpad = (int) (percentage * PBWIDTH);
-    int rpad = PBWIDTH - lpad;
-    printf("\r%3d%% [%.*s%*s]", val, lpad, PBSTR, rpad, "");
-    fflush(stdout);
-}
+
 PsoBasedSolution::PsoBasedSolution(Graph *graph) : BaseSolution(graph) {
     subgraphs = new vector<Graph*>();
     if(graph -> getNumberOfVertices() > PSO_SUBGRAPH_DIVISION_THRESHOLD){
@@ -36,8 +30,8 @@ void PsoBasedSolution::subgraphDivisioning() {
         for(auto * edge : *edges){
             auto point_a = edge -> getVertex1();
             auto point_b = edge -> getVertex2();
-            if(point_a == vertex || point_b == vertex){
-                subgraph -> addEdge(edge);
+            if (*point_a == *vertex || *point_b == *vertex) {
+                subgraph->addEdge(edge);
             }
         }
         subgraphs -> push_back(subgraph);
@@ -49,20 +43,9 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
     std::random_device rd;
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(0, 1);
-    // Get the boundary length of the subarea
-    double l_max = 0;
-    double l_temp = 0;
-    for(auto & edge : *(subgraph -> getEdges())){
-        l_temp = edge -> getVertex2() -> getDistance(edge -> getVertex1());
-        l_max =  l_temp > l_max ? l_temp : l_max;
-    }
+
     double x_center = (*subgraph -> getVertices())[0] -> getX();
     double y_center = (*subgraph -> getVertices())[0] -> getY();
-    double x_min = x_center - l_max;
-    double x_max = x_center + l_max;
-    double y_min = y_center - l_max;
-    double y_max = y_center + l_max;
-
     // vector holding global best position
     vector<double> global_best(2 * k);
 
@@ -87,17 +70,10 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
 
     vector<double> max_Q_personal(PSO_POPULATION_SIZE,0);
 
-    auto current_placement_vector = chargerToCoordinateVector(charger_placement);
-
-    vector<std::promise<double>*> promises(PSO_POPULATION_SIZE);
-
-    vector<std::future<double>> futures(PSO_POPULATION_SIZE);
-
-    vector<thread*> threads;
+    auto current_placement_vector = utils::chargerToCoordinateVector(charger_placement);
 
     cout << "\nRunning PSO at K = " << k << endl;
 
-    //multithreading is not possible by seqperating the loop
     for(int iter = 0; iter < PSO_ITERATION_TIME; ++iter){
         for(int p_i = 0; p_i < PSO_POPULATION_SIZE; ++p_i){
             vector<double> temp_vec(current_placement_vector);
@@ -108,7 +84,7 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
                 particle_positions[p_i][j] += particle_speed[p_i][j];
                 temp_vec.push_back(particle_positions[p_i][j]);
             }
-            auto temp_placement = coordinateVectorToCharger(temp_vec,Ps);
+            auto temp_placement = utils::coordinateVectorToCharger(temp_vec, Ps);
             Q = getEvaluationSum(temp_placement,c_evaluator,e_evaluator,p_evaluator) ;
             if(Q > max_Q_global){
                 max_Q_global = Q;
@@ -120,7 +96,7 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
             }
 
         }
-        printProgress(iter/(double)PSO_ITERATION_TIME);
+        utils::printProgress(iter / (double) PSO_ITERATION_TIME);
     }
 
     cout << "\nGlobal best positions ";
@@ -129,7 +105,7 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
         cout << to_string(item) << " ";
     }
     cout << endl;
-    return coordinateVectorToCharger(current_placement_vector,Ps);
+    return utils::coordinateVectorToCharger(current_placement_vector, Ps);
 }
 
 void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, double pth) {
@@ -146,7 +122,6 @@ void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, doub
         auto temp_placement = new vector<Charger*>();
         while(Q < 3){
             auto start = std::chrono::system_clock::now();
-
             k += 1;
             temp_placement = psoSolver(Ps,k,subgraph,chance_evaluator,power_evaluator,energy_evaluator);
             Q = getEvaluationSum(temp_placement, chance_evaluator,energy_evaluator, power_evaluator);
@@ -160,24 +135,4 @@ void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, doub
         charger_placement = temp_placement;
     }
 }
-
-vector<double> PsoBasedSolution::chargerToCoordinateVector(vector<Charger *>* placement) {
-    vector<double> result;
-    for(auto * charger : *placement){
-        result.push_back(charger -> getX());
-        result.push_back(charger -> getY());
-    }
-    return result;
-}
-
-vector<Charger *> *PsoBasedSolution::coordinateVectorToCharger(vector<double> vec, double Ps) {
-    auto result = new vector<Charger*>();
-    int i = 0;
-    while(i < vec.size()){
-        result -> push_back(new Charger(vec[i],vec[i + 1],Ps));
-        i += 2;
-    }
-    return result;
-}
-
 

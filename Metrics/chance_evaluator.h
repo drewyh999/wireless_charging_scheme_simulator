@@ -18,7 +18,6 @@ public:
     ChanceEvaluator(Graph *graph, double pth, double deltaL, double pC, double vBar);
 
     double getEvaluationScore(vector<Charger*> *placement) override;
-
 };
 
 

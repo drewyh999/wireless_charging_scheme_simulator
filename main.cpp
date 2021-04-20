@@ -29,7 +29,7 @@ int main() {
 
     solution -> solve(2,0.007,0.000027,V_BAR,0.9);
 
-    cout << "Solution charger placement set:" << endl;
+    cout << "\nSolution charger placement set:" << endl;
 
     for(auto & charger: *(solution -> getChargerPlacement())){
         cout << charger -> toString() << endl;
