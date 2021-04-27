@@ -25,6 +25,9 @@ private:
     void initLargeScaleGraph();
 
     bool is_large;
+
+    void graphToFile();
+
 public:
     //Indicated simulating sma
     enum Case {
