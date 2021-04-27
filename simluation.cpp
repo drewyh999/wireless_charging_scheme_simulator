@@ -102,34 +102,34 @@ void Simulation::Run() {
     double Pc = 0.007;
     double Ps = 2;
     graphToFile();
-    auto greedy_solution = new GreedyHeuristicSolution(graph, GREEDY_GRANULARITY);
-    auto pso_solution = new PsoBasedSolution(graph);
-    greedy_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
-    pso_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
-    cout << "Greedy Solution chargers" << endl;
-    for (auto &charger : *(greedy_solution->getChargerPlacement())) {
-        cout << charger->toString() << endl;
-    }
-    cout << "Pso Solution chargers" << endl;
-    for (auto &charger : *(pso_solution->getChargerPlacement())) {
-        cout << charger->toString() << endl;
-    }
+//    auto greedy_solution = new GreedyHeuristicSolution(graph, GREEDY_GRANULARITY);
+//    auto pso_solution = new PsoBasedSolution(graph);
+//    greedy_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
+//    pso_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
+//    cout << "Greedy Solution chargers" << endl;
+//    for (auto &charger : *(greedy_solution->getChargerPlacement())) {
+//        cout << charger->toString() << endl;
+//    }
+//    cout << "Pso Solution chargers" << endl;
+//    for (auto &charger : *(pso_solution->getChargerPlacement())) {
+//        cout << charger->toString() << endl;
+//    }
 }
 
 void Simulation::graphToFile() {
     ofstream outfile;
     outfile.open(string(RESULT_DIRECTORY).append("large_scale_graph_information.txt"), ios::out);
     if (outfile.good()) {
-        outfile << "vertices:" << endl;
+        outfile << "vertices" << endl;
         for (auto &vertex: *graph->getVertices()) {
             outfile << to_string(vertex->getX()) << ',';
         }
-        outfile << "\n";
+        outfile << endl;
         for (auto &vertex: *graph->getVertices()) {
             outfile << to_string(vertex->getY()) << ',';
         }
         outfile << "\n";
-        outfile << "edges:" << endl;
+        outfile << "edges" << endl;
         for (auto &edge: *graph->getEdges()) {
             outfile << edge->getVertex1()->toString() << ',' << edge->getVertex2()->toString() << endl;
         }
