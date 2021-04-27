@@ -44,16 +44,13 @@ void GreedyHeuristicSolution::solve(double Ps, double Pc, double eB, double v_ba
         auto max_q_candidate = candidate_coordinates->begin();
         for (auto candidate = candidate_coordinates->begin(); candidate != candidate_coordinates->end(); ++candidate) {
             charger_placement->push_back(new Charger((*candidate)->getX(), (*candidate)->getY(), Ps));
-            temp_Q = getEvaluationSum(charger_placement, chance_evaluator, energy_evaluator, power_evaluator);
+            temp_Q = utils::getEvaluationSum(charger_placement, chance_evaluator, energy_evaluator, power_evaluator);
             if (temp_Q > Q) {
                 Q = temp_Q;
                 max_q_candidate = candidate;
             }
             charger_placement->pop_back();
         }
-//        std::cout << "With the e_value of " << e_value << "\nc_value of " << c_value << "\np_value of " << p_value << endl;
-//        //Add the charger that maximize Q to the charger placement set
-//        std::cout << "Adding candidate to charger set" << (*max_q_candidate) -> toString()  << endl;
         charger_placement->push_back(new Charger((*max_q_candidate)->getX(), (*max_q_candidate)->getY(), Ps));
         //One charger could placed at a candidate coordinate
         candidate_coordinates->erase(max_q_candidate);

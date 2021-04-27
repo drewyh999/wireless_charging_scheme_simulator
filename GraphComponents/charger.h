@@ -19,9 +19,6 @@ public:
     Charger(double x, double y, double ps);
 
     double rechargeToDestination(Coordinate *destination);
-
-
-
 };
 
 

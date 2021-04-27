@@ -85,7 +85,7 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
                 temp_vec.push_back(particle_positions[p_i][j]);
             }
             auto temp_placement = utils::coordinateVectorToCharger(temp_vec, Ps);
-            Q = getEvaluationSum(temp_placement,c_evaluator,e_evaluator,p_evaluator) ;
+            Q = utils::getEvaluationSum(temp_placement, c_evaluator, e_evaluator, p_evaluator);
             if(Q > max_Q_global){
                 max_Q_global = Q;
                 global_best.assign(particle_positions[p_i].begin(),particle_positions[p_i].end());
@@ -118,13 +118,13 @@ void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, doub
         auto chance_evaluator = new ChanceEvaluator(subgraph, pth, DELTA_L, Pc, v_bar);
         auto energy_evaluator = new EnergyEvaluator(subgraph, eB, DELTA_L, Pc, v_bar);
         auto power_evaluator = new PowerEvaluator(subgraph, Pc);
-        Q = getEvaluationSum(charger_placement, chance_evaluator, energy_evaluator, power_evaluator);
+        Q = utils::getEvaluationSum(charger_placement, chance_evaluator, energy_evaluator, power_evaluator);
         auto temp_placement = new vector<Charger*>();
         while(Q < 3){
             auto start = std::chrono::system_clock::now();
             k += 1;
-            temp_placement = psoSolver(Ps,k,subgraph,chance_evaluator,power_evaluator,energy_evaluator);
-            Q = getEvaluationSum(temp_placement, chance_evaluator,energy_evaluator, power_evaluator);
+            temp_placement = psoSolver(Ps, k, subgraph, chance_evaluator, power_evaluator, energy_evaluator);
+            Q = utils::getEvaluationSum(temp_placement, chance_evaluator, energy_evaluator, power_evaluator);
             cout << "Current Q is " << to_string(Q) << endl;
             auto end   = std::chrono::system_clock::now();
             auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
@@ -132,7 +132,7 @@ void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, doub
                  << double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den
                  << " seconds" << endl;
         }
-        charger_placement = temp_placement;
+        charger_placement->insert(charger_placement->end(), temp_placement->begin(), temp_placement->end());
     }
 }
 
