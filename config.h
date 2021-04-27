@@ -17,11 +17,13 @@
 #define PSO_PHI_P 1
 #define PSO_PHI_G 1
 #define P_S_RANGE_LOW 2
-#define P_S_RANGE_HIGH 3
+#define P_S_RANGE_HIGH 5
 #define P_C_RANGE_LOW 2
 #define P_C_RANGE_HIGH 10
 #define BATTERY_CAPACITY 0.0000306
 #define P_TH_RANGE_LOW 0.8
-#define P_TH_RANGE_HIGH 1.0
+#define P_TH_RANGE_HIGH 1.05
+#define GREEDY_GRANULARITY 1
+#define RESULT_DIRECTORY "../../results/" //The path related to the executive produced by cmake-debug
 
 #endif //WIRELESS_CHARGING_SCHEME_SIMULATOR_CONFIG_H

@@ -40,7 +40,9 @@ void GreedyHeuristicSolution::solve(double Ps, double Pc, double eB, double v_ba
 
     double temp_Q = 0;
 
-    while(Q < 3){
+    cout << "\nRunning Greedy" << endl;
+
+    while (Q < 3) {
         auto max_q_candidate = candidate_coordinates->begin();
         for (auto candidate = candidate_coordinates->begin(); candidate != candidate_coordinates->end(); ++candidate) {
             charger_placement->push_back(new Charger((*candidate)->getX(), (*candidate)->getY(), Ps));

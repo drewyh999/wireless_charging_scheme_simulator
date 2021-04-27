@@ -21,11 +21,14 @@ double ChanceEvaluator::getEvaluationScore(vector<Charger *> *placement) {
     double x = 0;
     Vertex *end_vertex;
     for(auto & edge : *edges){
-        E_max = edge -> chargeAlongEdge(placement,delta_l,P_c,v_bar);
-        end_vertex = edge -> getVertex2();
-        P_h = end_vertex -> chargeToPoint(placement);
+        E_max = edge->chargeAlongEdge(placement, delta_l, P_c, v_bar);
+        end_vertex = edge->getVertex2();
+        P_h = end_vertex->chargeToPoint(placement);
         x = E_max / (P_h - P_c);
-        p_no = getTruncatedNormalDistributionCdfValue(end_vertex -> getMu(),end_vertex -> getSigma(),x);
+        if (isnan(x))
+            p_no = 1;
+        else
+            p_no = getTruncatedNormalDistributionCdfValue(end_vertex->getMu(), end_vertex->getSigma(), x);
         sum += (p_no / pth) < 1 ? (p_no / pth) : 1;
     }
     return sum / number_of_edges;

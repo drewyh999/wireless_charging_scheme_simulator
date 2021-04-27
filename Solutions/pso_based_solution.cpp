@@ -72,7 +72,7 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
 
     auto current_placement_vector = utils::chargerToCoordinateVector(charger_placement);
 
-    cout << "\nRunning PSO at K = " << k << endl;
+//    cout << "\nRunning PSO at K = " << k << endl;
 
     for(int iter = 0; iter < PSO_ITERATION_TIME; ++iter){
         for(int p_i = 0; p_i < PSO_POPULATION_SIZE; ++p_i){
@@ -96,15 +96,15 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
             }
 
         }
-        utils::printProgress(iter / (double) PSO_ITERATION_TIME);
+//        utils::printProgress(iter / (double) PSO_ITERATION_TIME);
     }
 
-    cout << "\nGlobal best positions ";
+//    cout << "\nGlobal best positions ";
     for(auto & item : global_best){
         current_placement_vector.push_back(item);
-        cout << to_string(item) << " ";
+//        cout << to_string(item) << " ";
     }
-    cout << endl;
+//    cout << endl;
     return utils::coordinateVectorToCharger(current_placement_vector, Ps);
 }
 
@@ -120,18 +120,22 @@ void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, doub
         auto power_evaluator = new PowerEvaluator(subgraph, Pc);
         Q = utils::getEvaluationSum(charger_placement, chance_evaluator, energy_evaluator, power_evaluator);
         auto temp_placement = new vector<Charger*>();
-        while(Q < 3){
-            auto start = std::chrono::system_clock::now();
+        cout << "\nRunning Pso " << endl;
+        while(Q < 3) {
+//            auto start = std::chrono::system_clock::now();
             k += 1;
+            utils::printProgress(Q / (double) 3.0);
             temp_placement = psoSolver(Ps, k, subgraph, chance_evaluator, power_evaluator, energy_evaluator);
             Q = utils::getEvaluationSum(temp_placement, chance_evaluator, energy_evaluator, power_evaluator);
-            cout << "Current Q is " << to_string(Q) << endl;
-            auto end   = std::chrono::system_clock::now();
-            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-            cout <<  "Pso iteration took "
-                 << double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den
-                 << " seconds" << endl;
+//            cout << "Current Q is " << to_string(Q) << endl;
+//            auto end   = std::chrono::system_clock::now();
+//            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+//            cout <<  "Pso iteration took "
+//                 << double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den
+//                 << " seconds" << endl;
+
         }
+        utils::printProgress(1);
         charger_placement->insert(charger_placement->end(), temp_placement->begin(), temp_placement->end());
     }
 }
