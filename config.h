@@ -16,10 +16,12 @@
 #define PSO_OMEGA 0.8
 #define PSO_PHI_P 1
 #define PSO_PHI_G 1
+#define P_S_RANGE_LOW 2
+#define P_S_RANGE_HIGH 3
 #define P_C_RANGE_LOW 2
 #define P_C_RANGE_HIGH 10
 #define BATTERY_CAPACITY 0.0000306
-#define P_TH_RANGE_LOW
-
+#define P_TH_RANGE_LOW 0.8
+#define P_TH_RANGE_HIGH 1.0
 
 #endif //WIRELESS_CHARGING_SCHEME_SIMULATOR_CONFIG_H
