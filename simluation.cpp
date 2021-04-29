@@ -34,6 +34,73 @@ void Simulation::initSmallScaleGraph() {
 }
 
 void Simulation::initLargeScaleGraph() {
+    graph = new Graph();
+    auto a = new Vertex(2, 3);
+    auto b = new Vertex(6.2, 17.8);
+    auto c = new Vertex(3.48, 13);
+    auto d = new Vertex(11.46, 8.57);
+    auto e = new Vertex(12, 46);
+    auto f = new Vertex(5.4, 41.2);
+    auto g = new Vertex(20, 40);
+    auto h = new Vertex(54.82, 7.03);
+    auto i = new Vertex(27.12, 20.88);
+    auto j = new Vertex(37.89, 44.52);
+    auto k = new Vertex(15.37, 34.58);
+    auto l = new Vertex(47.13, 5.07);
+    auto m = new Vertex(47.97, 48.85);
+    auto n = new Vertex(54.68, 32.35);
+    auto o = new Vertex(47.13, 40.88);
+    auto p = new Vertex(40, 20);
+    graph->addVertex(a);
+    graph->addVertex(b);
+    graph->addVertex(c);
+    graph->addVertex(d);
+    graph->addVertex(e);
+    graph->addVertex(f);
+    graph->addVertex(g);
+    graph->addVertex(h);
+    graph->addVertex(i);
+    graph->addVertex(j);
+    graph->addVertex(k);
+    graph->addVertex(l);
+    graph->addVertex(m);
+    graph->addVertex(n);
+    graph->addVertex(o);
+    graph->addVertex(p);
+
+
+    graph->addEdge(new Edge(a, d));
+    graph->addEdge(new Edge(d, c));
+    graph->addEdge(new Edge(d, f));
+    graph->addEdge(new Edge(d, e));
+    graph->addEdge(new Edge(d, k));
+    graph->addEdge(new Edge(j, i));
+    graph->addEdge(new Edge(l, h));
+//    graph->addEdge(new Edge(q,o));
+    graph->addEdge(new Edge(p, o));
+//    graph->addEdge(new Edge(n,q));
+    graph->addEdge(new Edge(o, m));
+    graph->addEdge(new Edge(n, o));
+//    graph->addEdge(new Edge(q,l));
+    graph->addEdge(new Edge(c, f));
+    graph->addEdge(new Edge(i, p));
+    graph->addEdge(new Edge(p, l));
+    graph->addEdge(new Edge(j, m));
+    graph->addEdge(new Edge(i, k));
+//    graph->addEdge(new Edge(i,t));
+//    graph->addEdge(new Edge(p,q));
+    graph->addEdge(new Edge(i, g));
+//    graph->addEdge(new Edge(g,t));
+//    graph->addEdge(new Edge(t,s));
+//    graph->addEdge(new Edge(s,m));
+    graph->addEdge(new Edge(m, n));
+//    graph->addEdge(new Edge(t,j));
+//    graph->addEdge(new Edge(r,g));
+    graph->addEdge(new Edge(k, g));
+    graph->addEdge(new Edge(f, e));
+    graph->addEdge(new Edge(e, k));
+    graph->addEdge(new Edge(c, b));
+
     std::cout << "Large scale graph initiated" << std::endl;
 }
 
@@ -98,22 +165,20 @@ void Simulation::Run(Simulation::VariatedParam v_param, double cons_1, double co
 }
 
 void Simulation::Run() {
-    double Pth = 0.9;
-    double Pc = 0.007;
-    double Ps = 2;
+    double Pth = 0.8;
+    double Pc = 0.003;
+    double Ps = 5;
     graphToFile();
-//    auto greedy_solution = new GreedyHeuristicSolution(graph, GREEDY_GRANULARITY);
-//    auto pso_solution = new PsoBasedSolution(graph);
-//    greedy_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
-//    pso_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
-//    cout << "Greedy Solution chargers" << endl;
-//    for (auto &charger : *(greedy_solution->getChargerPlacement())) {
-//        cout << charger->toString() << endl;
-//    }
-//    cout << "Pso Solution chargers" << endl;
-//    for (auto &charger : *(pso_solution->getChargerPlacement())) {
-//        cout << charger->toString() << endl;
-//    }
+    auto greedy_solution = new GreedyHeuristicSolution(graph, GREEDY_GRANULARITY);
+    auto pso_solution = new PsoBasedSolution(graph);
+    greedy_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
+    pso_solution->solve(Ps, Pc, BATTERY_CAPACITY, V_BAR, Pth);
+
+    cout << "Greedy Solution chargers: " << greedy_solution->getNumberOfChargers() << " chargers placed" << endl;
+    placementToFile(greedy_solution->getChargerPlacement(), "greedySolution");
+    cout << "Pso Solution chargers" << pso_solution->getNumberOfChargers() << " chargers placed" << endl;
+
+    placementToFile(pso_solution->getChargerPlacement(), "psoSolution");
 }
 
 void Simulation::graphToFile() {
@@ -134,4 +199,18 @@ void Simulation::graphToFile() {
             outfile << edge->getVertex1()->toString() << ',' << edge->getVertex2()->toString() << endl;
         }
     }
+    outfile.close();
 }
+
+void Simulation::placementToFile(vector<Charger *> *placement, const string &name) {
+    ofstream outfile;
+    outfile.open(string(RESULT_DIRECTORY).append(name).append(".txt"), ios::out);
+    if (outfile.good()) {
+        for (auto &charger: *placement) {
+            outfile << charger->toString() << endl;
+        }
+    }
+    outfile.close();
+}
+
+

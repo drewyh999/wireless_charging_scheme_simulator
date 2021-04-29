@@ -44,23 +44,43 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
     std::mt19937 mt(rd());
     std::uniform_real_distribution<double> dist(0, 1);
 
-    double x_center = (*subgraph -> getVertices())[0] -> getX();
-    double y_center = (*subgraph -> getVertices())[0] -> getY();
-    // vector holding global best position
-    vector<double> global_best(2 * k);
+    double x_center = (*subgraph->getVertices())[0]->getX();
+    double y_center = (*subgraph->getVertices())[0]->getY();
 
-    //vector holding personal best
-    vector<vector<double>> personal_best(PSO_POPULATION_SIZE, vector<double>(2*k,0));
+    double l_max = 0;
+    double l_temp = 0;
+    for (auto &edge : *(subgraph->getEdges())) {
+        l_temp = edge->getVertex2()->getDistance(edge->getVertex1());
+        l_max = l_temp > l_max ? l_temp : l_max;
+    }
+    double x_min = x_center - l_max;
+    double x_max = x_center + l_max;
+    double y_min = y_center - l_max;
+    double y_max = y_center + l_max;
+
 
     vector<double> init_particle;
 
-    for(int i = 0; i < k;i ++){
+
+    for (int i = 0; i < k; i++) {
         init_particle.push_back(x_center);
         init_particle.push_back(y_center);
     }
+    // vector holding global best position
+    vector<double> global_best(init_particle);
+
+    //vector holding personal best
+    vector<vector<double>> personal_best(PSO_POPULATION_SIZE, init_particle);
 
     // The vector containing all particle_position
-    vector<vector<double>> particle_positions(PSO_POPULATION_SIZE, init_particle);
+    vector<vector<double>> particle_positions(PSO_POPULATION_SIZE);
+
+    for (int i = 0; i < PSO_POPULATION_SIZE; i++) {
+        for (int j = 0; j < k; j++) {
+            particle_positions[i].push_back(x_min + dist(mt) * (x_max - x_min));
+            particle_positions[i].push_back(y_min + dist(mt) * (y_max - y_min));
+        }
+    }
 
     vector<vector<double>> particle_speed(PSO_POPULATION_SIZE, vector<double>(2 * k, 0));
 
@@ -68,19 +88,25 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
 
     double max_Q_global = 0;
 
-    vector<double> max_Q_personal(PSO_POPULATION_SIZE,0);
+    vector<double> max_Q_personal(PSO_POPULATION_SIZE, 0);
 
     auto current_placement_vector = utils::chargerToCoordinateVector(charger_placement);
 
-//    cout << "\nRunning PSO at K = " << k << endl;
+    cout << "\nRunning PSO at K = " << k << endl;
 
-    for(int iter = 0; iter < PSO_ITERATION_TIME; ++iter){
-        for(int p_i = 0; p_i < PSO_POPULATION_SIZE; ++p_i){
+    double pso_omega = (double) PSO_OMEGA;
+
+    double pso_phi_p = (double) PSO_PHI_P;
+
+    double pso_phi_g = (double) PSO_PHI_G;
+
+    for (int iter = 0; iter < PSO_ITERATION_TIME; ++iter) {
+        for (int p_i = 0; p_i < PSO_POPULATION_SIZE; ++p_i) {
             vector<double> temp_vec(current_placement_vector);
-            for(int j = 0;j < 2 * k; ++j){
-                particle_speed[p_i][j] = PSO_OMEGA * particle_speed[p_i][j]
-                                         + PSO_PHI_P * dist(mt) * (personal_best[p_i][j] - particle_positions[p_i][j])
-                                         + PSO_PHI_G * dist(mt) * (global_best[j] - particle_positions[p_i][j]);
+            for (int j = 0; j < 2 * k; ++j) {
+                particle_speed[p_i][j] = pso_omega * particle_speed[p_i][j]
+                                         + pso_phi_p * dist(mt) * (personal_best[p_i][j] - particle_positions[p_i][j])
+                                         + pso_phi_g * dist(mt) * (global_best[j] - particle_positions[p_i][j]);
                 particle_positions[p_i][j] += particle_speed[p_i][j];
                 temp_vec.push_back(particle_positions[p_i][j]);
             }
@@ -96,15 +122,15 @@ PsoBasedSolution::psoSolver(double Ps, int k, Graph *subgraph, ChanceEvaluator *
             }
 
         }
-//        utils::printProgress(iter / (double) PSO_ITERATION_TIME);
+        utils::printProgress(iter / (double) PSO_ITERATION_TIME);
     }
 
-//    cout << "\nGlobal best positions ";
+    cout << "\nGlobal best positions ";
     for(auto & item : global_best){
         current_placement_vector.push_back(item);
-//        cout << to_string(item) << " ";
+        cout << to_string(item) << " ";
     }
-//    cout << endl;
+    cout << endl;
     return utils::coordinateVectorToCharger(current_placement_vector, Ps);
 }
 
@@ -113,30 +139,52 @@ void PsoBasedSolution::solve(double Ps, double Pc, double eB, double v_bar, doub
 
     double Q = 0;
 
-    for(auto & subgraph : *subgraphs){
+    cout << "Running Pso with subgraphs size of " << subgraphs->size() << endl;
+
+    for (auto &subgraph : *subgraphs) {
         k = 0;
         auto chance_evaluator = new ChanceEvaluator(subgraph, pth, DELTA_L, Pc, v_bar);
         auto energy_evaluator = new EnergyEvaluator(subgraph, eB, DELTA_L, Pc, v_bar);
         auto power_evaluator = new PowerEvaluator(subgraph, Pc);
         Q = utils::getEvaluationSum(charger_placement, chance_evaluator, energy_evaluator, power_evaluator);
-        auto temp_placement = new vector<Charger*>();
-        cout << "\nRunning Pso " << endl;
-        while(Q < 3) {
-//            auto start = std::chrono::system_clock::now();
+        cout << "\nSubgraph Q is " << to_string(Q) << endl;
+        auto delta_placement = new vector<Charger *>();
+        auto temp_placement = new vector<Charger *>();
+        cout << "Solving subgraph with center of " << (*subgraph->getVertices())[0]->toString() << endl;
+        cout << "Subgraph number of vertex " << subgraph->getNumberOfVertices() << "Number of edges "
+             << subgraph->getNumberOfEdges() << endl;
+        bool in_loop = false;
+        while (Q < (double) 3.0) {
+            in_loop = true;
+            auto start = std::chrono::system_clock::now();
             k += 1;
-            utils::printProgress(Q / (double) 3.0);
-            temp_placement = psoSolver(Ps, k, subgraph, chance_evaluator, power_evaluator, energy_evaluator);
-            Q = utils::getEvaluationSum(temp_placement, chance_evaluator, energy_evaluator, power_evaluator);
-//            cout << "Current Q is " << to_string(Q) << endl;
-//            auto end   = std::chrono::system_clock::now();
-//            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-//            cout <<  "Pso iteration took "
-//                 << double(duration.count()) * std::chrono::microseconds::period::num / std::chrono::microseconds::period::den
-//                 << " seconds" << endl;
-
+//            utils::printProgress(Q / (double) 3.0);
+            delta_placement = psoSolver(Ps, k, subgraph, chance_evaluator, power_evaluator, energy_evaluator);
+//            temp_placement = new vector<Charger*>();
+//            temp_placement ->assign(charger_placement -> begin(),charger_placement -> end());
+//            temp_placement ->insert(temp_placement -> end(),delta_placement -> begin(), delta_placement -> end());
+            cout << "\nnumber of c_p " << charger_placement->size() << endl;
+//            cout << "number of t_p " << temp_placement -> size() << endl;
+            cout << "number of d_p " << delta_placement->size() << endl;
+            cout << "k " << k << endl;
+            for (auto &charger : *delta_placement) {
+                cout << charger->toString() << endl;
+            }
+            Q = utils::getEvaluationSum(delta_placement, chance_evaluator, energy_evaluator, power_evaluator);
+            cout << "Current Q is " << to_string(Q) << endl;
+            auto end = std::chrono::system_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+            cout << "Pso iteration took "
+                 << double(duration.count()) * std::chrono::microseconds::period::num /
+                    std::chrono::microseconds::period::den
+                 << " seconds" << endl;
         }
-        utils::printProgress(1);
-        charger_placement->insert(charger_placement->end(), temp_placement->begin(), temp_placement->end());
+//        utils::printProgress(1);
+//        charger_placement->insert(charger_placement->end(), delta_placement->begin(), delta_placement->end());
+//        charger_placement = temp_placement;
+        if (in_loop) {
+            charger_placement->assign(delta_placement->begin(), delta_placement->end());
+        }
     }
 }
 

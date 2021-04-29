@@ -28,6 +28,8 @@ private:
 
     void graphToFile();
 
+    void placementToFile(vector<Charger *> *placement, const string &name);
+
 public:
     //Indicated simulating sma
     enum Case {

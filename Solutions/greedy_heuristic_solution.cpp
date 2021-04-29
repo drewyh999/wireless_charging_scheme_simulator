@@ -42,6 +42,8 @@ void GreedyHeuristicSolution::solve(double Ps, double Pc, double eB, double v_ba
 
     cout << "\nRunning Greedy" << endl;
 
+    cout << "Number of candidated coordinates:" << candidate_coordinates->size() << endl;
+
     while (Q < 3) {
         auto max_q_candidate = candidate_coordinates->begin();
         for (auto candidate = candidate_coordinates->begin(); candidate != candidate_coordinates->end(); ++candidate) {
@@ -55,6 +57,10 @@ void GreedyHeuristicSolution::solve(double Ps, double Pc, double eB, double v_ba
         }
         charger_placement->push_back(new Charger((*max_q_candidate)->getX(), (*max_q_candidate)->getY(), Ps));
         //One charger could placed at a candidate coordinate
+//        cout << "With Q = " << to_string(Q) << " charger placement is :" << endl;
+//        for(auto & charger : *charger_placement){
+//            cout << charger -> toString() << endl;
+//        }
         candidate_coordinates->erase(max_q_candidate);
         utils::printProgress(Q / (double) 3);
     }
