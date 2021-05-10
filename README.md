@@ -1,4 +1,4 @@
-# wireless_charging_scheme_simulator
+# A simulator for a wireless charger placement algorithm in WRSN(Wireless Rechargable Sensor Network)
 > An undergraduate project in SiChuan University directed by [Prof. Lin](http://cs.scu.edu.cn/info/1292/13645.htm)
 
 Simulated the solutions in the following thesis:
