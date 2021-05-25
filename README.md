@@ -16,7 +16,7 @@ Implemented the Greedy based solution and the D&C-PSO solution and the main work
 
 Regular Cmake building procedure, with `conanbuildinfo.cmake` placed under the cmake-debug-build folder.
 
-# Results Plotting
+# Results Plotting:
 
 Jupyter notebook/6.0.3
 Python/3.6.1
