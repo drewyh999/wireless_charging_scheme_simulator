@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/4/19.
+// Created by Dominique Zhu on 2021/4/19.
 //
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_SIMLUATION_H
@@ -28,10 +28,10 @@ private:
 
     void graphToFile();
 
-    void placementToFile(vector<Charger *> *placement, const string &name);
+    static void placementToFile(vector<Charger *> *placement, const string &name);
 
 public:
-    //Indicated simulating sma
+    //Indicated simulating small scale simulation or large scale simulation
     enum Case {
         Small_Scale, Large_Scale
     };
@@ -42,8 +42,10 @@ public:
 
     explicit Simulation(Simulation::Case situation);
 
+    // For running simulations that outputs numbers of chargers of the placements
     void Run(VariatedParam v_param, double cons_1, double cons_2);
 
+    // For running simulation that outputs exact coordinates of each chargers
     void Run();
 };
 

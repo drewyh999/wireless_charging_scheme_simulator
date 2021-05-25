@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/3/29.
+// Created by Dominique Zhu on 2021/3/29.
 //
 
 #include "chance_evaluator.h"

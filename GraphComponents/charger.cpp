@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/3/26.
+// Created by Dominique Zhu on 2021/3/26.
 //
 
 #include "charger.h"

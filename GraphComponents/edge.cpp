@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/3/22.
+// Created by Dominique Zhu on 2021/3/22.
 //
 
 #include "edge.h"

@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/4/19.
+// Created by Dominique Zhu on 2021/4/19.
 //
 
 #include "simluation.h"
@@ -165,9 +165,9 @@ void Simulation::Run(Simulation::VariatedParam v_param, double cons_1, double co
 }
 
 void Simulation::Run() {
-    double Pth = 0.8;
+    double Pth = 0.9;
     double Pc = 0.003;
-    double Ps = 5;
+    double Ps = 2;
     graphToFile();
     auto greedy_solution = new GreedyHeuristicSolution(graph, GREEDY_GRANULARITY);
     auto pso_solution = new PsoBasedSolution(graph);

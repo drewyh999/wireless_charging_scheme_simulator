@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/4/11.
+// Created by Dominique Zhu on 2021/4/11.
 //
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_PSO_BASED_SOLUTION_H

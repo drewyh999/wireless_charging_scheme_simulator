@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/3/28.
+// Created by Dominique Zhu on 2021/3/28.
 //
 
 #ifndef WIRELESS_CHARGING_SCHEME_SIMULATOR_COORDINATE_H

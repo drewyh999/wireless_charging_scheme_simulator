@@ -1,5 +1,5 @@
 //
-// Created by 朱原昊 on 2021/4/2.
+// Created by Dominique Zhu on 2021/4/2.
 //
 
 #include "greedy_heuristic_solution.h"
@@ -56,12 +56,9 @@ void GreedyHeuristicSolution::solve(double Ps, double Pc, double eB, double v_ba
             charger_placement->pop_back();
         }
         charger_placement->push_back(new Charger((*max_q_candidate)->getX(), (*max_q_candidate)->getY(), Ps));
-        //One charger could placed at a candidate coordinate
-//        cout << "With Q = " << to_string(Q) << " charger placement is :" << endl;
-//        for(auto & charger : *charger_placement){
-//            cout << charger -> toString() << endl;
-//        }
+
         candidate_coordinates->erase(max_q_candidate);
+
         utils::printProgress(Q / (double) 3);
     }
 
